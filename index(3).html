@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sunny 科技產業分析與管理期末複習站 V2</title><style>
+:root{--bg:#fff7fb;--card:#fff;--ink:#2b2530;--muted:#7a6f80;--pink:#ff7eb6;--p2:#ffd6e8;--vio:#8f7af5;--good:#15975b;--bad:#df3f47;--line:#f0d9e6}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#fff);color:var(--ink);font-size:18px;line-height:1.6}header{position:sticky;top:0;z-index:9;background:rgba(255,247,251,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 18px}h1{font-size:24px;margin:0 0 6px}.sub{color:var(--muted);font-size:15px}nav{display:flex;gap:8px;overflow:auto;padding-top:10px}nav button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 15px;font-size:17px;white-space:nowrap}nav button.active{background:var(--pink);color:#fff;border-color:var(--pink)}main{max-width:980px;margin:auto;padding:18px}.sec{display:none}.sec.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 8px 22px rgba(143,122,245,.08);margin-bottom:16px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{font-size:30px;font-weight:800}.label,.small{font-size:14px;color:var(--muted)}.q{font-size:22px;font-weight:800;margin:8px 0 14px}.opts{display:grid;gap:12px}.opt{width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:18px;padding:15px 18px;font-size:19px}.opt.correct{border-color:var(--good);background:#edfff6}.opt.wrong{border-color:var(--bad);background:#fff0f0}.btn{border:0;border-radius:16px;background:var(--vio);color:#fff;padding:12px 18px;font-size:18px;font-weight:800;margin:5px;cursor:pointer}.btn.pink{background:var(--pink)}.btn.sec2{background:#fff;color:var(--ink);border:1px solid var(--line)}select,input{font-size:18px;padding:11px;border-radius:14px;border:1px solid var(--line);background:#fff}.fb{margin-top:14px;padding:14px;border-radius:16px;background:#faf7ff;border:1px solid #e7ddff}.tag{font-size:13px;background:var(--p2);border-radius:999px;padding:4px 9px;color:#7c3152}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.progress{height:12px;background:#f5e8f0;border-radius:99px;overflow:hidden}.bar{height:100%;background:var(--pink);width:0}.item{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff;margin:10px 0}.ans{font-weight:800;color:#6b4bd8}.blur{filter:blur(6px);user-select:none}.note{background:#fff6cc;border:1px solid #f1dc78;border-radius:16px;padding:14px}@media(max-width:760px){body{font-size:17px}main{padding:12px}.grid{grid-template-columns:repeat(2,1fr)}.q{font-size:20px}.opt{font-size:18px;padding:14px}header{padding:12px}.card{border-radius:18px;padding:15px}}@media(min-width:761px) and (max-width:1100px){body,.opt,.btn,select,input{font-size:20px}.q{font-size:25px}.card{padding:22px}}
+</style></head><body><header><h1>📚 Sunny 科技產業分析與管理期末複習站 完整版 V2</h1><div class="sub">保留原 GitHub 互動功能：練習、模擬考、錯題本、必考填充、速讀；手機/平板適配</div><nav id="nav"></nav></header><main><section id="home" class="sec active"></section><section id="practice" class="sec"></section><section id="exam" class="sec"></section><section id="wrong" class="sec"></section><section id="fill" class="sec"></section><section id="summary" class="sec"></section></main><script>
+const mcq=[
+['工研院3B','工研院推動創新前瞻的制度策略架構是？',['拼湊－連介－傳播','連介－拼湊－傳播','拼湊－傳播－連介','傳播－拼湊－連介'],0,'3B＝Bricolage拼湊、Brokerage連介、Broadcast傳播。'],
+['制度策略','探討行動如何改造制度，一般可從哪個面向著手？',['所屬場域的制度化程度','行動者位置','以上皆是','以上皆非'],2,'制度化程度與行動者位置都可作為觀察面向。'],
+['工研院3B','行動者透過社會網絡、引薦、標竿與合作取得資源，是？',['連介策略','傳播策略','拼湊策略','去制度化'],0,'Brokerage＝連介策略。'],
+['工研院3B','行動者湊合與重組組織內部既有資源，尋求權宜方案，是？',['連介策略','傳播策略','拼湊策略','模仿策略'],2,'Bricolage＝拼湊策略。'],
+['工研院3B','以話語或符號散佈改變必要與新制度好處、凝聚共識，是？',['連介策略','傳播策略','拼湊策略','市場策略'],1,'Broadcast＝傳播策略。'],
+['制度變革','把既存習俗、邏輯或傳統治理架構移除掉，稱為？',['去制度化','再制度化','制度創建','制度維持'],0,'移除舊制度是去制度化。'],
+['制度變革','成熟場域更新轉型，新的作法取代往日風情，稱為？',['去制度化','再制度化','制度創建','制度模仿'],1,'新作法取代舊作法是再制度化。'],
+['制度變革','從無到有建構全新制度，稱為？',['去制度化','再制度化','制度創建','制度崩解'],2,'從零建立新制度是制度創建。'],
+['工研院3B','bricolage 對應哪一項策略？',['連介','傳播','拼湊','同形'],2,'bricolage＝拼湊。'],
+['工研院3B','brokerage 對應哪一項策略？',['連介','傳播','拼湊','創建'],0,'brokerage＝連介。'],
+['工研院3B','broadcast 對應哪一項策略？',['連介','傳播','拼湊','解耦'],1,'broadcast＝傳播。'],
+['工研院','工研院從傳統科專到創新前瞻，下列何者正確？',['傳統科專接近產業端、聚焦關鍵技術與零組件','創新前瞻已成為政府研發體系一環','以上皆是','以上皆非'],2,'兩項敘述皆正確。'],
+['工研院','有關工研院發展，下列何者正確？',['早期承接政府捐助為重要經費來源','帶動台灣積體電路產業發展','以上皆是','以上皆非'],2,'兩項皆是工研院重要敘述。'],
+['工研院3B','工研院拼湊策略可包含？',['組織與文化配合調整','改變人員獎勵辦法','以上皆是','以上皆非'],2,'內部資源與制度調整屬拼湊。'],
+['工研院3B','工研院連介策略可包含？',['引入國際視野與全球趨勢','舉行國際研討會尋求共識','以上皆是','以上皆非'],2,'對外連結與引入知識屬連介。'],
+['工研院3B','工研院傳播策略可包含？',['例行會議、走動式工作小組','圖像、符號或文本具像化','以上皆是','以上皆非'],2,'溝通與具像化都屬傳播。'],
+['產業與制度','下列何者不是常被舉例的新興產業？',['芬蘭行動通訊','德國生技製藥','以色列軟體業','台灣軟體業'],3,'原題答案為台灣軟體業。'],
+['組織型態','台灣家族企業、韓國財閥、日本經連會屬於？',['複數的新型態組織','單數的新型態組織','複數的舊型態組織','單數的舊型態組織'],0,'題庫答案為複數的新型態組織。'],
+['策略創新','策略創新的中心主體是？',['命定論','意志論','無神論','命定與意志結合論'],1,'策略創新強調行動者意志。'],
+['制度形塑','制度形塑的客體主軸是？',['命定論','意志論','無神論','英雄論'],0,'制度形塑偏向命定論。'],
+['新型態組織','4G速度讓 Netflix 取代 Blockbuster，是屬於？',['技術機會','社會制度','創業行動','以上皆是'],0,'4G速度屬技術機會。'],
+['新型態組織','具有產業活動合法性、普遍性和強制性的是？',['技術機會','社會制度','創業行動','以上皆是'],1,'合法性、普遍性、強制性屬社會制度。'],
+['新型態組織','企業家辨識機會並擷取制度資源以正當化，是？',['技術機會','社會制度','創業行動','以上皆是'],2,'企業家行動屬創業行動。'],
+['創業創新','下列哪一個不是英雄主義創業創新？',['技術不連續改變產業均衡','創造性破壞','網絡關係','環境異質性'],3,'環境異質性不是英雄主義創業創新。'],
+['新型態組織','新型態組織發展過程由哪些構面共同演繹？',['技術機會','社會制度','創業行動','以上皆是'],3,'三者共同作用。'],
+['創投','創業投資於哪一年引進台灣？',['1980','1982','1984','1986'],2,'答案：1984。'],
+['摩爾定律','摩爾定律常見表述為電晶體數量約多久增加一倍？',['每2至4個月','每10至20個月','每3至6個月','每12至24個月'],3,'常見為12至24個月。'],
+['制度理論','舊制度主義的制度化主要來自？',['效率的追求','合法性','正當性','以上皆是'],0,'舊制度主義強調效率。'],
+['制度創業','法規改變、危機、新技術、需求變化帶來機會，屬於？',['巨觀外在環境','微觀個人層次','無關環境','以上皆是'],0,'屬巨觀外在環境。'],
+['制度創業','制度多元性或制度複雜度，屬於？',['微觀個人層次','巨觀外在環境','無關環境','以上皆是'],1,'屬巨觀外在環境。'],
+['制度創業','行動者反思刺激或變化並運用資源創造、維持、破壞制度，屬於？',['巨觀外在環境','微觀個人層次','無關環境','以上皆是'],1,'屬微觀／個人層次。'],
+['半導體','台灣第一間本土半導體公司是？',['台積電','聯電','力晶','聯發科'],1,'答案：聯電。'],
+['半導體','1987年 SEMATECH 策略聯盟由哪國政府號召？',['日本','韓國','台灣','美國'],3,'答案：美國。'],
+['半導體','2007年 Apple 第一代 iPhone 採用何種指令集架構微處理器？',['CISC','RISC','CMOS','ASIC'],1,'答案：RISC。'],
+['半導體','第一家晶圓代工模式公司是？',['台積電','聯電','力晶','聯發科'],0,'答案：台積電。'],
+['台積電三階段','台積電回應摩爾定律三階段為？',['摩爾為王、深度摩爾、超越摩爾','守、破、離','駱駝、獅子、嬰兒','規則、資源、行動'],0,'三階段：摩爾為王、深度摩爾、超越摩爾。'],
+['台積電三階段','台積電「解耦 decoupling」策略主要屬於哪一階段？',['摩爾為王','深度摩爾','超越摩爾','後摩爾'],1,'解耦屬深度摩爾階段。'],
+['台積電三階段','台積電第一階段「摩爾為王」大致為？',['1987–2000','2001–2010','2011–2019','2020–2026'],0,'填充重點：1987–2000。'],
+['台積電三階段','台積電第二階段「深度摩爾」大致為？',['1987–2000','2001–2010','2011–2019','2020–2026'],1,'填充重點：2001–2010。'],
+['台積電三階段','台積電第三階段「超越摩爾」大致為？',['1987–2000','2001–2010','2011–2019','2020–2026'],2,'填充重點：2011–2019。'],
+['創新路徑','強調源頭、指標、脈絡與路徑形成，引導科技創新方向，是？',['意志論','命定論','意志與命定結合','以上皆非'],1,'創新路徑形成與規範方向偏命定論。'],
+['創新路徑','哪一個不是創新路徑元素？',['規則','行動','資源','人'],3,'創新路徑三要素：規則、資源、行動。'],
+['創新路徑','何者是創新的規範、制約、桎梏？',['規則','行動','資源','人'],0,'規則代表規範與制約。'],
+['創新路徑','何者是創新的激勵、誘因、獎賞？',['規則','行動','資源','人'],2,'資源形成誘因與獎賞。'],
+['創新路徑','展現時勢與制度的形塑效果，屬於？',['行動的路徑','制度的路徑','創業的路徑','以上皆是'],1,'答案：制度的路徑。'],
+['守破離','脫離過往，創造自己獨特風格，屬於？',['守','破','離','以上皆是'],2,'離＝脫離框架、形成獨特風格。'],
+['創新路徑','制度化行為模式或框架，使廠商知道如何有意義地生產與創新，是？',['規則','資源','行動','創新'],0,'制度化框架屬規則。'],
+['同形力量','組織面對未來環境不確定性而彼此模仿，是？',['強制同形力量','規範同形力量','模仿同形力量','以上皆是'],2,'不確定下模仿他者＝模仿同形。'],
+['正當性','基於自身利益計算，組織是否能帶來實質利益，是？',['實用正當性','道德正當性','認知正當性','以上皆是'],0,'利益計算＝實用正當性。'],
+['同形力量','DiMaggio & Powell 提出的三種同形力量不包含？',['強制同形','模仿同形','規範同形','英雄同形'],3,'三種為強制、模仿、規範。'],
+['同形力量','由法規、政府、強勢組織要求所造成的趨同，是？',['強制同形','模仿同形','規範同形','隨機同形'],0,'壓力或法規造成強制同形。'],
+['同形力量','由專業教育、職業社群、專業規範造成的趨同，是？',['強制同形','模仿同形','規範同形','資源同形'],2,'專業化造成規範同形。'],
+['正當性','正當性三類不包含？',['實用正當性','道德正當性','認知正當性','財務正當性'],3,'常見三類：實用、道德、認知。'],
+['FAN','FAN 分析常可記成哪三個重點？',['Function、Application、Network','Finance、Account、Name','Fast、AI、New','Factory、Agency、Nation'],0,'記憶：功能、應用、網絡。'],
+['FAN','FAN 中的 F 較接近？',['功能／Function','應用／Application','網絡／Network','制度／Institution'],0,'F＝Function。'],
+['FAN','FAN 中的 A 較接近？',['功能','應用','網絡','策略'],1,'A＝Application。'],
+['FAN','FAN 中的 N 較接近？',['功能','應用','網絡','資源'],2,'N＝Network。'],
+['Oliver','Oliver 對制度壓力的策略反應通常從順從到抵抗，下列何者最接近？',['默許、妥協、迴避、挑戰、操縱','守、破、離','拼湊、連介、傳播','駱駝、獅子、嬰兒'],0,'Oliver 五種策略反應：默許、妥協、迴避、挑戰、操縱。'],
+['Oliver','Oliver 策略中，接受並遵循制度壓力，稱為？',['默許','迴避','挑戰','操縱'],0,'默許＝接受／順從。'],
+['Oliver','Oliver 策略中，試圖降低或緩和制度壓力，稱為？',['默許','妥協','挑戰','操縱'],1,'妥協＝平衡、安撫、協商。'],
+['Oliver','Oliver 策略中，隱藏不遵從或緩衝制度要求，稱為？',['默許','迴避','挑戰','操縱'],1,'迴避＝隱藏、緩衝、逃離。'],
+['Oliver','Oliver 策略中，直接反抗或質疑制度規範，稱為？',['默許','妥協','挑戰','操縱'],2,'挑戰＝拒絕、反抗、攻擊。'],
+['Oliver','Oliver 策略中，主動影響或控制制度環境，稱為？',['默許','迴避','挑戰','操縱'],3,'操縱＝主動塑造制度。'],
+['Suchman','Suchman 正當性三類為？',['實用、道德、認知','守、破、離','拼湊、連介、傳播','強制、模仿、規範'],0,'Suchman：pragmatic、moral、cognitive legitimacy。'],
+['Suchman','符合利益交換、對自己有好處的正當性是？',['實用正當性','道德正當性','認知正當性','規範正當性'],0,'實用正當性重利益。'],
+['Suchman','符合社會價值、應該這樣做的正當性是？',['實用正當性','道德正當性','認知正當性','市場正當性'],1,'道德正當性重價值與應然。'],
+['Suchman','被視為理所當然、可理解、不可或缺的正當性是？',['實用正當性','道德正當性','認知正當性','財務正當性'],2,'認知正當性＝taken-for-granted。'],
+['守破離','守破離的正確順序是？',['守→破→離','破→守→離','離→破→守','守→離→破'],0,'先遵守學習，再突破，最後超越。'],
+['守破離','「守」代表？',['學習與遵守既有規範','突破既有教條','形成獨特風格','完全放棄學習'],0,'守＝遵守既有形式。'],
+['守破離','「破」代表？',['照規矩做','突破既有教條','脫離過往','毫無關聯'],1,'破＝打破／突破。'],
+['守破離','「離」代表？',['模仿老師','突破教條','脫離框架並創造自己風格','遵守規範'],2,'離＝創造自身風格。'],
+['尼采三階段','尼采以哪三種生物比喻突破困境成為超人的三階段？',['駱駝、獅子、嬰兒','老鷹、蛇、狼','守、破、離','規則、資源、行動'],0,'尼采三變：駱駝、獅子、嬰兒。'],
+['尼采三階段','尼采三階段中的「駱駝」象徵？',['承擔重負與學習忍耐','反抗舊價值','創造新價值','制度同形'],0,'駱駝＝承擔。'],
+['尼采三階段','尼采三階段中的「獅子」象徵？',['承擔重負','反抗與否定舊價值','純真創造','模仿'],1,'獅子＝反抗舊價值。'],
+['尼采三階段','尼采三階段中的「嬰兒」象徵？',['負重','反抗','純真創造新價值','服從'],2,'嬰兒＝重新開始、創造。'],
+['工研院連介','工研院連介制度策略七項中，下列何者最可能屬於連介？',['引入國際視野','全球趨勢掃描','國際研討會','以上皆是'],3,'連介重點是向外連結、引入知識與共識。'],
+['工研院連介','連介策略的核心關鍵是？',['弱連結與社會資本','完全封閉','只靠內部資源','只做廣告'],0,'連介靠網絡、弱連結、社會資本。'],
+['工研院連介','「標竿學習」較偏向哪一種3B策略？',['拼湊','連介','傳播','去制度化'],1,'標竿與外部學習屬連介。'],
+['工研院連介','「國際研討會」在工研院創新前瞻中較偏向？',['連介策略','拼湊策略','強制同形','守'],0,'國際研討會用於連結外部專家與共識。'],
+['工研院連介','「國際顧問／專家引入」較偏向？',['連介策略','傳播策略','模仿同形','認知正當性'],0,'引入外部專業資源＝連介。'],
+['工研院連介','「跨組織合作網絡」較偏向？',['連介策略','拼湊策略','離','駱駝'],0,'跨組織合作是典型連介。'],
+['工研院連介','「引薦、標竿、合作」三個詞最適合記哪一個策略？',['拼湊','連介','傳播','制度創建'],1,'這三詞直接對應連介。'],
+['資源基礎','資源基礎理論強調的特性不包含？',['價值性','可替代性','稀有性','難以模仿'],1,'題庫答案：可替代性不是重點。'],
+['策略事件','收購與合併、將外部資源內部化，屬於哪一種策略？',['工廠型','市場型','績效型','文化型'],1,'題庫答案：市場型。'],
+['硬碟機','台灣硬碟機國家系統中，下列何者非存在？',['教育系統','政府產業政策','台灣經濟研究院','產業網絡'],2,'題庫答案：台灣經濟研究院。'],
+['台灣產業','台灣產業組織特色何者為非？',['中小企業','合作網絡','技術領導','彈性分工'],2,'題庫答案：技術領導。'],
+['面板產業','台灣快速建立面板產業的重要關鍵，何者不是？',['製造業外移中國創造需求','創新系統技術擴散','日本技術授權','台日共構網絡'],0,'題庫答案：製造業外移中國。'],
+['面板產業','台灣政府對面板業支持，何者為非？',['賦稅減少','投資入股','技術發展','政策協助'],1,'題庫答案：投資入股。']
+].map((x,i)=>({id:i+1,cat:x[0],q:x[1],opts:x[2],a:x[3],exp:x[4]}));
+const fills=[
+['3B策略架構','拼湊（Bricolage）、連介（Brokerage）、傳播（Broadcast）'],['創新路徑三要素','規則、資源、行動'],['守破離','守：遵守規範；破：突破教條；離：形成獨特風格'],['台積電回應摩爾定律三階段','摩爾為王（1987–2000）、深度摩爾（2001–2010）、超越摩爾（2011–2019）'],['DiMaggio & Powell 三種同形力量','強制同形、模仿同形、規範同形'],['Suchman 三種正當性','實用正當性、道德正當性、認知正當性'],['Oliver 五種制度壓力策略反應','默許、妥協、迴避、挑戰、操縱'],['尼采三階段','駱駝、獅子、嬰兒'],['新型態組織誕生三元素','技術機會、社會制度、創業行動'],['FAN記憶','Function、Application、Network'],['工研院連介七項記憶','國際視野、全球趨勢、國際研討會、外部專家、標竿學習、跨組織合作、弱連結社會資本'],['制度變革三類','去制度化、再制度化、制度創建'],['正當性白話記憶','有好處＝實用；應該做＝道德；理所當然＝認知'],['同形力量白話記憶','被要求＝強制；不確定跟著做＝模仿；專業訓練一致＝規範']
+];
+let state={tab:'home',idx:0,filter:'全部',answered:false,exam:[],examIdx:0,score:0,examDone:false,fillShow:null};
+const LS='sunny_final_v2_wrong';const wrong=()=>JSON.parse(localStorage.getItem(LS)||'[]');const saveWrong=a=>localStorage.setItem(LS,JSON.stringify([...new Set(a)]));const cats=['全部',...new Set(mcq.map(x=>x.cat))];
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}function qs(){return state.filter==='全部'?mcq:mcq.filter(x=>x.cat===state.filter)}
+function nav(){let tabs=[['home','首頁'],['practice','選擇題'],['exam','模擬考'],['wrong','錯題本'],['fill','必考填充'],['summary','考前速讀']];document.getElementById('nav').innerHTML=tabs.map(t=>`<button class="${state.tab===t[0]?'active':''}" onclick="go('${t[0]}')">${t[1]}</button>`).join('')}
+function go(t){state.tab=t;document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));document.getElementById(t).classList.add('active');nav();render()}
+function render(){renderHome();renderPractice();renderExam();renderWrong();renderFill();renderSummary()}
+function renderHome(){let w=wrong().length;home.innerHTML=`<div class=card><div class=q>今天目標：先刷選擇題，再背必考填充</div><div class=note>總題數 <b>${mcq.length}</b> 題。已加入：3B、FAN、Oliver、Suchman、守破離、台積電三階段、同形力量、創新路徑三要素、尼采三階段、工研院七項連介制度策略。</div></div><div class=grid><div class=card><div class=stat>${mcq.length}</div><div class=label>選擇題</div></div><div class=card><div class=stat>${fills.length}</div><div class=label>填充重點</div></div><div class=card><div class=stat>${w}</div><div class=label>錯題本</div></div><div class=card><div class=stat>30</div><div class=label>模擬考題數</div></div></div><div class=card><button class="btn pink" onclick="go('practice')">開始刷題</button><button class=btn onclick="startExam()">開始模擬考</button><button class="btn sec2" onclick="go('fill')">背填充</button></div>`}
+function renderPractice(){let list=qs(),q=list[state.idx%list.length];practice.innerHTML=`<div class=card><div class=row><select onchange="state.filter=this.value;state.idx=0;state.answered=false;render()">${cats.map(c=>`<option ${c===state.filter?'selected':''}>${c}</option>`).join('')}</select><span class=tag>${q.cat}</span><span class=small>${state.idx+1}/${list.length}</span></div><div class=q>${q.q}</div><div class=opts>${q.opts.map((o,i)=>`<button class=opt onclick="ans(${q.id},${i},this)">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div><div id=fb></div><button class="btn sec2" onclick="prevQ()">上一題</button><button class=btn onclick="nextQ()">下一題</button><button class="btn pink" onclick="randQ()">隨機</button></div>`}
+function ans(id,i,el){let q=mcq.find(x=>x.id===id);document.querySelectorAll('#practice .opt').forEach((b,k)=>{b.disabled=true;if(k===q.a)b.classList.add('correct');if(k===i&&i!==q.a)b.classList.add('wrong')});let w=wrong();if(i!==q.a&&!w.includes(id)){w.push(id);saveWrong(w)}fb.innerHTML=`<div class=fb>${i===q.a?'✅ 答對':'❌ 答錯'}。正解：${String.fromCharCode(65+q.a)}. ${q.opts[q.a]}<br>${q.exp}</div>`;renderHome()}
+function nextQ(){state.idx=(state.idx+1)%qs().length;renderPractice()}function prevQ(){state.idx=(state.idx-1+qs().length)%qs().length;renderPractice()}function randQ(){state.idx=Math.floor(Math.random()*qs().length);renderPractice()}
+function startExam(){state.tab='exam';state.exam=shuffle(mcq).slice(0,30);state.examIdx=0;state.score=0;state.examDone=false;go('exam')}
+function renderExam(){if(!state.exam.length){exam.innerHTML=`<div class=card><div class=q>模擬考：隨機 30 題</div><button class="btn pink" onclick="startExam()">開始</button></div>`;return}if(state.examDone){let pct=Math.round(state.score/state.exam.length*100);exam.innerHTML=`<div class=card><div class=q>模擬考完成</div><div class=stat>${state.score}/${state.exam.length}（${pct}%）</div><button class="btn pink" onclick="startExam()">再考一次</button><button class=btn onclick="go('wrong')">看錯題</button></div>`;return}let q=state.exam[state.examIdx];exam.innerHTML=`<div class=card><div class=small>第 ${state.examIdx+1}/${state.exam.length} 題</div><div class=progress><div class=bar style="width:${state.examIdx/state.exam.length*100}%"></div></div><span class=tag>${q.cat}</span><div class=q>${q.q}</div><div class=opts>${q.opts.map((o,i)=>`<button class=opt onclick="examAns(${i},this)">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div><div id=efb></div></div>`}
+function examAns(i,el){let q=state.exam[state.examIdx];document.querySelectorAll('#exam .opt').forEach((b,k)=>{b.disabled=true;if(k===q.a)b.classList.add('correct');if(k===i&&i!==q.a)b.classList.add('wrong')});if(i===q.a)state.score++;else{let w=wrong();if(!w.includes(q.id)){w.push(q.id);saveWrong(w)}}efb.innerHTML=`<div class=fb>${i===q.a?'✅':'❌'} 正解：${q.opts[q.a]}<br>${q.exp}<br><button class=btn onclick="state.examIdx++; if(state.examIdx>=state.exam.length)state.examDone=true; renderExam(); renderHome()">下一題</button></div>`}
+function renderWrong(){let ids=wrong(),arr=ids.map(id=>mcq.find(q=>q.id===id)).filter(Boolean);wrong.innerHTML=`<div class=card><div class=q>錯題本</div><button class="btn sec2" onclick="saveWrong([]);render()">清空錯題</button></div>`+(arr.length?arr.map(q=>`<div class=item><span class=tag>${q.cat}</span><b> ${q.q}</b><br><span class=ans>答案：${q.opts[q.a]}</span><br><span class=small>${q.exp}</span></div>`).join(''):`<div class=card>目前沒有錯題。</div>`)}
+function renderFill(){fill.innerHTML=`<div class=card><div class=q>必考填充題模式</div><div class=small>點題目可顯示／隱藏答案。</div></div>`+fills.map((f,i)=>`<div class=item onclick="state.fillShow=state.fillShow===${i}?null:${i};renderFill()"><b>${i+1}. ${f[0]}</b><div class="ans ${state.fillShow===i?'':'blur'}">${f[1]}</div></div>`).join('')}
+function renderSummary(){summary.innerHTML=`<div class=card><div class=q>考前速讀口訣</div><p><b>3B：</b>拼湊靠內部、連介靠外部網絡、傳播靠溝通共識。</p><p><b>創新路徑：</b>規則管方向、資源給誘因、行動推改變。</p><p><b>同形力量：</b>被逼＝強制；不確定跟風＝模仿；專業訓練＝規範。</p><p><b>正當性：</b>有利益＝實用；合價值＝道德；理所當然＝認知。</p><p><b>Oliver：</b>默許、妥協、迴避、挑戰、操縱，抵抗程度越來越高。</p><p><b>守破離／尼采：</b>守破離＝學、破、創；尼采＝駱駝承擔、獅子反抗、嬰兒創造。</p></div>`}
+nav();render();
+</script></body></html>
